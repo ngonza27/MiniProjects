@@ -1,0 +1,70 @@
+<html>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <style>
+        canvas {
+            background-color: black;
+        }
+    </style>
+    <script>
+        var canvas
+        var canvasContext
+        var img = new Image()
+        var ballX = Math.random()*500
+        var ballY = Math.random()*500
+        var ballSpeedX = Math.random()*8
+        var ballSpeedY = Math.random()*8
+        var hasHit = false
+        var actualColor = "8224bd"
+
+        window.onload = function(){
+            canvas = document.getElementById('gameCanvas');
+            canvasContext = canvas.getContext('2d')
+            img.src = './dvd.png';
+            var fps = 30;
+            setInterval(() =>{
+                moveEverything()
+                drawEverything()
+            }, 1000/fps)
+        }
+
+        function moveEverything(){
+            ballX = ballX + ballSpeedX
+            ballY = ballY + ballSpeedY
+
+            if(ballX <= 0 || ballX >= canvas.width-200){
+                ballSpeedX = -ballSpeedX
+                hasHit = true
+            }
+
+            if(ballY <= 0 || ballY >= canvas.height-100){
+                ballSpeedY = -ballSpeedY
+                hasHit = true
+            }
+        }
+
+        function changeColor(){
+            var randomColor = Math.floor(Math.random()*16777215).toString(16);
+            var newColor = '#'+ randomColor
+            actualColor = randomColor
+            return newColor
+        }
+
+        function drawEverything() { 
+            canvasContext.fillStyle = 'black'
+            canvasContext.fillRect(0,0,canvas.width, canvas.height)
+            canvasContext.beginPath()
+            if(hasHit){
+                canvasContext.fillStyle = changeColor()
+                hasHit = false
+            }
+            canvasContext.drawImage(img, ballX, ballY, 200, 100)
+            canvasContext.globalCompositeOperation = "color";
+            canvasContext.fillStyle = "#"+actualColor;
+            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+            canvasContext.globalCompositeOperation = "destination-in";
+            canvasContext.drawImage(img, ballX, ballY, 200, 100)
+            canvasContext.globalCompositeOperation = "source-over";
+            
+        }
+    </script>
+</html>
