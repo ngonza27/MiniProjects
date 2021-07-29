@@ -55,6 +55,7 @@ def select_position(board, player, spots_taken):
         spots_taken += 1
         if(spots_taken >= 9):
             print("It is a tie, a good game from both of you!")
+            sys.exit()
 
 
 
