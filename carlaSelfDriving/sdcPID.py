@@ -163,7 +163,7 @@ def main():
 	
 		blueprint_library = world.get_blueprint_library()
 		vehicle_bp = blueprint_library.filter('cybertruck')[0]
-		spawnpoint = carla.Transform(carla.Location(x=-9, y=132, z=7), carla.Rotation(pitch=0.0,yaw = 180.0 , roll=0.0))
+		spawnpoint = carla.Transform(carla.Location(x=98.879669, y=-143.292572, z=7), carla.Rotation(pitch=0.0,yaw = 180.0 , roll=0.0))
 		#-28.4, 27.9
 		vehicle = world.spawn_actor(vehicle_bp, spawnpoint)	
 		actor_list.append(vehicle)
@@ -174,7 +174,7 @@ def main():
 			waypoints = world.get_map().get_waypoint(vehicle.get_location())
 			#print(waypoints)
 			#waypoint = np.random.choice(waypoints.next(0.3))
-			waypoint = world.get_map().get_waypoint(carla.Location(x=-59, y=130))
+			waypoint = world.get_map().get_waypoint(carla.Location(x=-92.249451, y=242.834198))
 			control_signal = control_vehicle.run_step(5,waypoint)
 			vehicle.apply_control(control_signal)
 
